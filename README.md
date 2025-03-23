@@ -1,8 +1,8 @@
-# tree-sitter-talon
+# tree-sitter-talon-list
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/wenkokke/tree-sitter-talon) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/wenkokke/tree-sitter-talon) ![npm](https://img.shields.io/npm/v/tree-sitter-talon) [![GitHub CI Status](https://github.com/wenkokke/tree-sitter-talon/actions/workflows/ci.yml/badge.svg)](https://github.com/wenkokke/tree-sitter-talon/actions/workflows/ci.yml) ![GitHub](https://img.shields.io/github/license/wenkokke/tree-sitter-talon)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/nova38/tree-sitter-talon-list) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/nova38/tree-sitter-talon-list) ![npm](https://img.shields.io/npm/v/tree-sitter-talon-list) [![GitHub CI Status](https://github.com/nova38/tree-sitter-talon-list/actions/workflows/ci.yml/badge.svg)](https://github.com/nova38/tree-sitter-talon-list/actions/workflows/ci.yml) ![GitHub](https://img.shields.io/github/license/nova38/tree-sitter-talon-list)
 
-Unofficial Talon file grammar for [tree-sitter].
+Unofficial Talon List file grammar for [tree-sitter]. It is a fork of [tree-sitter-talon](https://github.com/wenkokke/tree-sitter-talon) with some modifications to support the Talon List file format which has a similar header to the Talon Script but has a much simpler body. Its body is similar to a csv file with two columns that uses a `:` to separate them. The first column is the key and the second is the value. If there is only one column in a given line then the key is also the value.
 
 References:
 

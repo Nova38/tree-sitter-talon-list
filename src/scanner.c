@@ -396,37 +396,37 @@ Scanner_scan (Scanner *scanner, TSLexer *lexer, const bool *valid_symbols)
 }
 
 void *
-tree_sitter_talon_external_scanner_create ()
+tree_sitter_talon_list_external_scanner_create ()
 {
   return Scanner_new ();
 }
 
 bool
-tree_sitter_talon_external_scanner_scan (void *payload, TSLexer *lexer,
-                                         const bool *valid_symbols)
+tree_sitter_talon_list_external_scanner_scan (void *payload, TSLexer *lexer,
+                                              const bool *valid_symbols)
 {
   Scanner *scanner = (Scanner *)payload;
   return Scanner_scan (scanner, lexer, valid_symbols);
 }
 
 unsigned
-tree_sitter_talon_external_scanner_serialize (void *payload, char *buffer)
+tree_sitter_talon_list_external_scanner_serialize (void *payload, char *buffer)
 {
   Scanner *scanner = (Scanner *)payload;
   return Scanner_serialize (scanner, buffer);
 }
 
 void
-tree_sitter_talon_external_scanner_deserialize (void *payload,
-                                                const char *buffer,
-                                                unsigned length)
+tree_sitter_talon_list_external_scanner_deserialize (void *payload,
+                                                     const char *buffer,
+                                                     unsigned length)
 {
   Scanner *scanner = (Scanner *)payload;
   Scanner_deserialize (scanner, buffer, length);
 }
 
 void
-tree_sitter_talon_external_scanner_destroy (void *payload)
+tree_sitter_talon_list_external_scanner_destroy (void *payload)
 {
   Scanner *scanner = (Scanner *)payload;
   Scanner_free (scanner);

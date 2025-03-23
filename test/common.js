@@ -11,25 +11,25 @@ function getTestModes() {
 }
 
 async function createParserNode() {
-  const pathToTreeSitterTalonNode = `../prebuilds/${process.platform}-${process.arch}/tree-sitter-talon.node`
+  const pathToTreeSitterTalonNode = `../prebuilds/${process.platform}-${process.arch}/tree-sitter-talon-list.node`
   const TalonNode = require(pathToTreeSitterTalonNode);
   return new ParserNode().setLanguage(TalonNode);
 }
 
 async function createParserWasm() {
   await ParserWasm.init();
-  const pathToTreeSitterTalonWasm = path.resolve(__dirname, '..', 'tree-sitter-talon.wasm')
+  const pathToTreeSitterTalonWasm = path.resolve(__dirname, '..', 'tree-sitter-talon-list.wasm')
   const TalonWasm = await ParserWasm.Language.load(pathToTreeSitterTalonWasm);
   return new ParserWasm().setLanguage(TalonWasm);
 }
 
 async function createParser(MODE) {
   switch (MODE) {
-    // Load tree-sitter and tree-sitter-talon.node
+    // Load tree-sitter and tree-sitter-talon-list.node
     case 'node': {
       return await createParserNode();
     };
-    // Load web-tree-sitter and tree-sitter-talon.wasm
+    // Load web-tree-sitter and tree-sitter-talon-list.wasm
     case 'wasm': {
       return await createParserWasm();
     };
@@ -86,7 +86,7 @@ function fetchTestDataFiles(dir) {
 }
 
 function fetchAllTestDataDirectories() {
-  const urls = packageJson?.['tree-sitter-talon']?.['tested-with'];
+  const urls = packageJson?.['tree-sitter-talon-list']?.['tested-with'];
   const dirs = [];
   if (urls !== undefined && Array.isArray(urls)) {
     for (const url of urls) {

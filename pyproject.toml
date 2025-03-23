@@ -3,23 +3,24 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "tree-sitter-talon"
-description = "Talon grammar for tree-sitter"
+name = "tree-sitter-talon-list"
+description = "Talon List grammar for tree-sitter"
 version = "0.0.1"
+authors = [{ name = "Thomas Atkins" }, { name = "Wen Kokke" }]
 keywords = ["incremental", "parsing", "tree-sitter", "talon"]
 classifiers = [
   "Intended Audience :: Developers",
   "License :: OSI Approved :: MIT License",
   "Topic :: Software Development :: Compilers",
   "Topic :: Text Processing :: Linguistic",
-  "Typing :: Typed"
+  "Typing :: Typed",
 ]
 requires-python = ">=3.8"
 license.text = "MIT"
 readme = "README.md"
 
 [project.urls]
-Homepage = "https://github.com/tree-sitter/tree-sitter-talon"
+Homepage = "https://github.com/tree-sitter/tree-sitter-talon-list"
 
 [project.optional-dependencies]
 core = ["tree-sitter~=0.21"]

@@ -1,5 +1,5 @@
-#ifndef TREE_SITTER_TALON_H_
-#define TREE_SITTER_TALON_H_
+#ifndef tree_sitter_talon_list_H_
+#define tree_sitter_talon_list_H_
 
 typedef struct TSLanguage TSLanguage;
 
@@ -7,10 +7,10 @@ typedef struct TSLanguage TSLanguage;
 extern "C" {
 #endif
 
-const TSLanguage *tree_sitter_talon(void);
+const TSLanguage *tree_sitter_talon_list(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // TREE_SITTER_TALON_H_
+#endif // tree_sitter_talon_list_H_

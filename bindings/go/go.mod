@@ -1,4 +1,4 @@
-module github.com/tree-sitter/tree-sitter-talon
+module github.com/tree-sitter/tree-sitter-talon-list
 
 go 1.22
 

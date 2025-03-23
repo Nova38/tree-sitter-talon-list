@@ -1,5 +1,5 @@
 [bumpver]
-current_version = "5.0.0"
+current_version = "0.0.1"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "Bump version {old_version} -> {new_version}"
 commit = true
@@ -7,9 +7,5 @@ tag = true
 push = true
 
 [bumpver.file_patterns]
-"package.json" = [
-    '"version": "{version}"',
-]
-"bumpver.toml" = [
-    'current_version = "{version}"',
-]
+"package.json" = ['"version": "{version}"']
+"bumpver.toml" = ['current_version = "{version}"']

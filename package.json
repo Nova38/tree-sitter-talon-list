@@ -1,7 +1,7 @@
 {
-  "name": "tree-sitter-talon",
-  "version": "5.0.0",
-  "description": "Talon grammar for tree-sitter",
+  "name": "tree-sitter-talon-list",
+  "version": "0.0.1",
+  "description": "Talon-List grammar for tree-sitter",
   "main": "bindings/node",
   "types": "bindings/node",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wenkokke/tree-sitter-talon.git"
+    "url": "git+https://github.com/nova38/tree-sitter-talon-list.git"
   },
   "keywords": [
     "parser",
@@ -45,9 +45,9 @@
   "author": "Wen Kokke",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wenkokke/tree-sitter-talon/issues"
+    "url": "https://github.com/wenkokke/tree-sitter-talon-list/issues"
   },
-  "homepage": "https://github.com/wenkokke/tree-sitter-talon#readme",
+  "homepage": "https://github.com/wenkokke/tree-sitter-talon-list#readme",
   "dependencies": {
     "node-addon-api": "^7.1.0",
     "node-gyp-build": "^4.8.0"
@@ -63,13 +63,13 @@
   },
   "tree-sitter": [
     {
-      "scope": "source.talon",
+      "scope": "source.talon-list",
       "file-types": [
-        "talon"
+        "talon-list"
       ]
     }
   ],
-  "tree-sitter-talon": {
+  "tree-sitter-talon-list": {
     "tested-with": [
       "github:AndreasArvidsson/andreas-talon#43811bae4c1a75f2ecd29240891f6612a1b7cec5",
       "github:nriley/talon_community#1ff0e36f47689193be1d8909b9935f7c7004a045",
