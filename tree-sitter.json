@@ -1,0 +1,39 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "talon_list",
+      "camelcase": "TalonList",
+      "title": "Talon List",
+      "scope": "source.talon_list",
+      "file-types": [
+        "talon-list"
+      ],
+      "injection-regex": "^talon_list$",
+      "class-name": "TreeSitterTalonList"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "TalonList grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "Thomas Atkins",
+        "email": "dev.csnova@gmail.com"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/Nova38/tree-sitter-talon-list"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}

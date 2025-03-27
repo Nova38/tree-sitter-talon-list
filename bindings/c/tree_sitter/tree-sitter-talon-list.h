@@ -1,5 +1,5 @@
-#ifndef tree_sitter_talon_list_H_
-#define tree_sitter_talon_list_H_
+#ifndef TREE_SITTER_TALON_LIST_H_
+#define TREE_SITTER_TALON_LIST_H_
 
 typedef struct TSLanguage TSLanguage;
 
@@ -13,4 +13,4 @@ const TSLanguage *tree_sitter_talon_list(void);
 }
 #endif
 
-#endif // tree_sitter_talon_list_H_
+#endif // TREE_SITTER_TALON_LIST_H_

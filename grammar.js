@@ -1,38 +1,39 @@
 module.exports = grammar({
-  name: "talon-list",
+  name: "talon_list",
 
   extras: ($) => [
     $.comment,
     /[\s\f\uFEFF\u2060\u200B]|\\\r?\n/,
   ],
 
-  supertypes: ($) => [
-    $.declaration,
-    $.expression,
-    $.number,
-    $.statement,
-  ],
+  // supertypes: ($) => [
+  //   $.declaration,
+  //   $.number,
+  //   $.statement,
+  // ],
 
-  externals: ($) => [
-    $._newline,
-    $._string_start,
-    $.string_content,
-    $._string_end,
-    $.comment,
-  ],
+  // externals: ($) => [
+  //   $._newline,
+  //   $._string_start,
+  //   $.string_content,
+  //   $._string_end,
+  //   $.comment,
+  // ],
 
-  conflicts: ($) => [
-    [$.identifier, $.word],
-  ],
+  // conflicts: ($) => [
+  //   [$.identifier, $.word],
+  // ],
 
   rules: {
     source_file: ($) =>
       seq(
         optional($.matches),
-        optional($.declarations),
+        optional($.entries),
+        // optional($.declarations),
       ),
 
     comment: ($) => token(/#[^\r\n]*?/),
+    newline: $ => /\r?\n|\r/,
 
     // This is declared to avoid lexical precedence issues arising from ambiguity at the beginning
     // of a file between $.word and $.identifier. By declaring a regular expression that is the
@@ -45,7 +46,8 @@ module.exports = grammar({
       seq(
         repeat($.match),
         repeat1("-"),
-        $._newline),
+        $.newline
+      ),
 
     match_modifier: ($) => choice("and", "not"),
 
@@ -55,30 +57,29 @@ module.exports = grammar({
         field("left", $.identifier),
         ":",
         field("right", $.implicit_string),
-        $._newline
+        $.newline
       ),
 
 
 
-    /* Statements */
-    statement: ($) =>
+
+    /* Entries */
+    entries: ($) => seq($.implicit_entry_expression),
+    entry_expression: ($) =>
       choice(
-        $.assignment_statement,
+        $.entry_mapped_expression,
+        $.implicit_entry_expression,
       ),
+    implicit_entry_expression: ($) => seq(field("key", $.implicit_string), $.newline),
 
-    assignment_statement: ($) =>
+    entry_mapped_expression: ($) =>
       seq(
-        field("left", $.identifier),
+        field("key", $.implicit_string),
         ":",
-        field("right", $.implicit_string),
-        $._newline,
+        field("value", $.implicit_string),
+        $.newline,
       ),
 
-    implicit_assignment_statement: ($) =>
-      seq(
-        field("expression", $.expression),
-        $._newline,
-      ),
 
 
 
@@ -94,15 +95,14 @@ module.exports = grammar({
 
     string: ($) =>
       seq(
-        alias($._string_start, '"'),
+        '"',
         repeat(
           choice(
             $.string_escape_sequence,
-            alias($._not_escapesequence, $.string_content),
-            $.string_content
+            $._not_escapesequence,
           )
         ),
-        alias($._string_end, '"')
+        '"'
       ),
 
 

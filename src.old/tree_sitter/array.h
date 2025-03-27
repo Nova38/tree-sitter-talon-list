@@ -15,7 +15,6 @@ extern "C"
 #include <string.h>
 
 #ifdef _MSC_VER
-#pragma warning(push)
 #pragma warning(disable : 4101)
 #elif defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic push
@@ -319,7 +318,7 @@ extern "C"
 #define _compare_int(a, b) ((int)*(a) - (int)(b))
 
 #ifdef _MSC_VER
-#pragma warning(pop)
+#pragma warning(default : 4101)
 #elif defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic pop
 #endif
