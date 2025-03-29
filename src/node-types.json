@@ -1,29 +1,19 @@
 [
   {
-    "type": "entries",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "implicit_entry_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "identifier",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "implicit_entry_expression",
+    "type": "command_declaration",
     "named": true,
     "fields": {
-      "key": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "right": {
         "multiple": false,
         "required": true,
         "types": [
@@ -33,17 +23,42 @@
           }
         ]
       }
-    },
+    }
+  },
+  {
+    "type": "declaration",
+    "named": true,
+    "fields": {},
     "children": {
       "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "newline",
+          "type": "command_declaration",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "declarations",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "identifier",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "match",
@@ -125,7 +140,7 @@
       "required": false,
       "types": [
         {
-          "type": "entries",
+          "type": "declarations",
           "named": true
         },
         {
@@ -134,6 +149,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "word",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "-",

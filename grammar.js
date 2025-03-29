@@ -28,8 +28,8 @@ module.exports = grammar({
     source_file: ($) =>
       seq(
         optional($.matches),
-        optional($.entries),
-        // optional($.declarations),
+        // optional($.entries),
+        optional($.declarations),
       ),
 
     comment: ($) => token(/#[^\r\n]*?/),
@@ -60,21 +60,40 @@ module.exports = grammar({
         $.newline
       ),
 
+    declarations: ($) => repeat1($.declaration),
+    declaration: ($) =>
+      choice(
+        $.command_declaration,
+      ),
+    command_declaration: ($) =>
+      seq(
+        field("left", $.word),
+        ":",
+        field("right", $.implicit_string),
+      ),
 
-
+    word: ($) => choice(
+      $._simple_identifier,
+      /[\p{Letter}\p{Number}][\p{Letter}\p{Number}\-']*/,
+    ),
 
     /* Entries */
-    entries: ($) => seq($.implicit_entry_expression),
+    entries: ($) => seq(repeat1($.entry_expression),),
     entry_expression: ($) =>
-      choice(
-        $.entry_mapped_expression,
-        $.implicit_entry_expression,
+      seq(
+        field("key", $.identifier),
+        optional(
+          seq(":",
+            field("value", $.implicit_string)
+          )
+        ),
+        $.newline,
       ),
-    implicit_entry_expression: ($) => seq(field("key", $.implicit_string), $.newline),
+    // implicit_entry_expression: ($) => seq(field("key", $.implicit_string), $.newline),
 
     entry_mapped_expression: ($) =>
       seq(
-        field("key", $.implicit_string),
+        field("key", $.identifier),
         ":",
         field("value", $.implicit_string),
         $.newline,
@@ -86,7 +105,6 @@ module.exports = grammar({
     /* Identifiers */
 
     identifier: ($) => choice(
-      $._simple_identifier,
       /([A-Za-z_][A-Za-z0-9_]*)(\.[A-Za-z_][A-Za-z0-9_]*)*/,
     ),
 
@@ -142,7 +160,18 @@ module.exports = grammar({
 });
 
 
+function sep(rule, separator) {
+  return optional(sep1(rule, separator));
+}
 
 function sep1(rule, separator) {
   return seq(rule, repeat(seq(separator, rule)));
+}
+
+function sep2(rule, separator) {
+  return seq(rule, repeat1(seq(separator, rule)));
+}
+
+function repeat2(rule) {
+  return seq(rule, repeat1(rule));
 }
