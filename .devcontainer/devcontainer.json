@@ -9,7 +9,8 @@
 		"ghcr.io/devcontainers-extra/features/act-asdf:2": {},
 		"ghcr.io/devcontainers-extra/features/fzf:1": {},
 		"ghcr.io/devcontainers-extra/features/zsh-plugins:0": {}
-	}
+
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -18,7 +19,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "uname -a",
+	"postCreateCommand": "cargo install tree-sitter-cli --locked"
 
 	// Configure tool-specific properties.
 	// "customizations": {},

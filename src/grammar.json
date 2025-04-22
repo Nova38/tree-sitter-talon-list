@@ -42,10 +42,6 @@
       "type": "PATTERN",
       "value": "\\r?\\n|\\r"
     },
-    "_simple_identifier": {
-      "type": "PATTERN",
-      "value": "[A-Za-z][A-Za-z0-9]*"
-    },
     "matches": {
       "type": "SEQ",
       "members": [
@@ -130,70 +126,11 @@
       }
     },
     "declaration": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "command_declaration"
-        }
-      ]
-    },
-    "command_declaration": {
       "type": "SEQ",
       "members": [
         {
           "type": "FIELD",
           "name": "left",
-          "content": {
-            "type": "SYMBOL",
-            "name": "word"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": ":"
-        },
-        {
-          "type": "FIELD",
-          "name": "right",
-          "content": {
-            "type": "SYMBOL",
-            "name": "implicit_string"
-          }
-        }
-      ]
-    },
-    "word": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_simple_identifier"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[\\p{Letter}\\p{Number}][\\p{Letter}\\p{Number}\\-']*"
-        }
-      ]
-    },
-    "entries": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SYMBOL",
-            "name": "entry_expression"
-          }
-        }
-      ]
-    },
-    "entry_expression": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "key",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -211,7 +148,7 @@
                 },
                 {
                   "type": "FIELD",
-                  "name": "value",
+                  "name": "right",
                   "content": {
                     "type": "SYMBOL",
                     "name": "implicit_string"
@@ -223,39 +160,6 @@
               "type": "BLANK"
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "newline"
-        }
-      ]
-    },
-    "entry_mapped_expression": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "key",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": ":"
-        },
-        {
-          "type": "FIELD",
-          "name": "value",
-          "content": {
-            "type": "SYMBOL",
-            "name": "implicit_string"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "newline"
         }
       ]
     },
@@ -303,33 +207,6 @@
           "value": "\""
         }
       ]
-    },
-    "_escape_interpolation": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "ALIAS",
-            "content": {
-              "type": "STRING",
-              "value": "{{"
-            },
-            "named": false,
-            "value": "{"
-          },
-          {
-            "type": "ALIAS",
-            "content": {
-              "type": "STRING",
-              "value": "}}"
-            },
-            "named": false,
-            "value": "}"
-          }
-        ]
-      }
     },
     "string_escape_sequence": {
       "type": "TOKEN",

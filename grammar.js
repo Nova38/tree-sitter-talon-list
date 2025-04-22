@@ -28,18 +28,22 @@ module.exports = grammar({
     source_file: ($) =>
       seq(
         optional($.matches),
-        // optional($.entries),
         optional($.declarations),
       ),
 
     comment: ($) => token(/#[^\r\n]*?/),
     newline: $ => /\r?\n|\r/,
 
-    // This is declared to avoid lexical precedence issues arising from ambiguity at the beginning
-    // of a file between $.word and $.identifier. By declaring a regular expression that is the
-    // intersection of both, we enable the parser to backtrack if needed.
-    _simple_identifier: ($) => /[A-Za-z][A-Za-z0-9]*/,
+    // // This is declared to avoid lexical precedence issues arising from
+    // // ambiguity at the beginning of a file between $.word and $.identifier.
+    // // By declaring a regular expression that is the intersection of both, we
+    // // enable the parser to backtrack if needed.
+    // _simple_identifier: ($) => /[A-Za-z][A-Za-z0-9]*/,
 
+    // word: ($) => choice(
+    //   $._simple_identifier,
+    //   /[\p{Letter}\p{Number}][\p{Letter}\p{Number}\-']*/,
+    // ),
     /* Context */
 
     matches: ($) =>
@@ -61,46 +65,17 @@ module.exports = grammar({
       ),
 
     declarations: ($) => repeat1($.declaration),
+
     declaration: ($) =>
-      choice(
-        $.command_declaration,
-      ),
-    command_declaration: ($) =>
       seq(
-        field("left", $.word),
-        ":",
-        field("right", $.implicit_string),
-      ),
-
-    word: ($) => choice(
-      $._simple_identifier,
-      /[\p{Letter}\p{Number}][\p{Letter}\p{Number}\-']*/,
-    ),
-
-    /* Entries */
-    entries: ($) => seq(repeat1($.entry_expression),),
-    entry_expression: ($) =>
-      seq(
-        field("key", $.identifier),
+        field("left", $.identifier),
         optional(
-          seq(":",
-            field("value", $.implicit_string)
+          seq(
+            ":",
+            field("right", $.implicit_string),
           )
-        ),
-        $.newline,
+        )
       ),
-    // implicit_entry_expression: ($) => seq(field("key", $.implicit_string), $.newline),
-
-    entry_mapped_expression: ($) =>
-      seq(
-        field("key", $.identifier),
-        ":",
-        field("value", $.implicit_string),
-        $.newline,
-      ),
-
-
-
 
     /* Identifiers */
 
@@ -122,10 +97,6 @@ module.exports = grammar({
         ),
         '"'
       ),
-
-
-    _escape_interpolation: ($) =>
-      prec(1, choice(alias("{{", "{"), alias("}}", "}"))),
 
     string_escape_sequence: ($) =>
       token(
@@ -155,9 +126,9 @@ module.exports = grammar({
       ),
 
     _not_escapesequence: ($) => "\\",
-
   },
-});
+}
+);
 
 
 function sep(rule, separator) {

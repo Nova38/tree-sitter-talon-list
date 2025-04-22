@@ -113,4 +113,12 @@ clean:
 test:
 	$(TS) test
 
-.PHONY: all install uninstall clean test
+
+wasm: all
+	# $(LANGUAGE_NAME).wasm
+	tree-sitter build --wasm
+
+playground: wasm
+	tree-sitter playground
+
+.PHONY: all install uninstall clean test wasm
