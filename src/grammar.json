@@ -3,6 +3,30 @@
   "name": "talon_list",
   "rules": {
     "source_file": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC_DYNAMIC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "headerless"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "with_header"
+        }
+      ]
+    },
+    "headerless": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "declaration"
+      }
+    },
+    "with_header": {
       "type": "SEQ",
       "members": [
         {
@@ -18,16 +42,29 @@
           ]
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "declarations"
-            },
-            {
-              "type": "BLANK"
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "REPEAT1",
+              "content": {
+                "type": "STRING",
+                "value": "-"
+              }
             }
-          ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "declaration"
+          }
         }
       ]
     },
@@ -46,22 +83,11 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "REPEAT",
+          "type": "REPEAT1",
           "content": {
             "type": "SYMBOL",
             "name": "match"
           }
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "STRING",
-            "value": "-"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "newline"
         }
       ]
     },
@@ -160,6 +186,10 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "newline"
         }
       ]
     },
@@ -304,7 +334,16 @@
       "value": "[\\s\\f\\uFEFF\\u2060\\u200B]|\\\\\\r?\\n"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "match",
+      "declaration"
+    ],
+    [
+      "headerless",
+      "with_header"
+    ]
+  ],
   "precedences": [],
   "externals": [],
   "inline": [],

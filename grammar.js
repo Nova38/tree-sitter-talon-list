@@ -6,6 +6,16 @@ module.exports = grammar({
     /[\s\f\uFEFF\u2060\u200B]|\\\r?\n/,
   ],
 
+  conflicts: ($) => [
+    [
+      $.match,
+      $.declaration,
+    ],
+    [
+      $.headerless,
+      $.with_header,
+    ]
+  ],
   // supertypes: ($) => [
   //   $.declaration,
   //   $.number,
@@ -26,10 +36,19 @@ module.exports = grammar({
 
   rules: {
     source_file: ($) =>
-      seq(
-        optional($.matches),
-        optional($.declarations),
+      choice(
+        prec.dynamic(2, $.headerless),
+        $.with_header,
       ),
+
+    headerless: ($) => repeat1($.declaration),
+
+    with_header: ($) => seq(
+      optional($.matches),
+      token(prec(1, repeat1("-"))),
+      $.newline,
+      repeat($.declaration),
+    ),
 
     comment: ($) => token(/#[^\r\n]*?/),
     newline: $ => /\r?\n|\r/,
@@ -48,9 +67,7 @@ module.exports = grammar({
 
     matches: ($) =>
       seq(
-        repeat($.match),
-        repeat1("-"),
-        $.newline
+        repeat1($.match),
       ),
 
     match_modifier: ($) => choice("and", "not"),
@@ -74,7 +91,8 @@ module.exports = grammar({
             ":",
             field("right", $.implicit_string),
           )
-        )
+        ),
+        $.newline
       ),
 
     /* Identifiers */
